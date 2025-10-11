@@ -32,7 +32,7 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
+    <section id="about" ref={ref} className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -44,7 +44,7 @@ const About = () => {
             About Me
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Passionate about creating exceptional digital experiences that blend creativity with functionality
+            Hello! I'm <span className="gradient-text font-bold">NDM</span>, a Python Developer who also works as a blockchain researcher and tester. I have a passion for building innovative solutions and ensuring their quality and security.
           </p>
         </motion.div>
 

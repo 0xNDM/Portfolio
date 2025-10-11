@@ -1,8 +1,10 @@
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
+import TechStack from "@/components/TechStack";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import CursorEffect from "@/components/CursorEffect";
 import DarkModeToggle from "@/components/DarkModeToggle";
@@ -12,14 +14,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <ScrollProgress />
+      <Header />
       <AnimatedBackground />
       <CursorEffect />
       <DarkModeToggle />
       <Hero />
       <About />
       <Skills />
-      <Projects />
-      <Contact />
+  <Projects />
+  <TechStack />
+  <Contact />
     </div>
   );
 };

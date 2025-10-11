@@ -130,7 +130,7 @@ const Contact = () => {
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        <p>© 2024 Creative Developer. Built with passion and modern web technologies.</p>
+        <p>© {new Date().getFullYear()} NDM. All Rights Reserved.</p>
       </motion.div>
     </section>
   );
