@@ -58,9 +58,10 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-[9999] transition-all duration-300 ${scrolled ? "backdrop-blur-md bg-white/60 dark:bg-black/40 border-b border-border/30" : "bg-transparent"} ${hidden ? "-translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"}`}>
+    // slightly higher z-index and ensure header content has right padding on md+ to avoid overlap with fixed controls
+    <header className={`fixed inset-x-0 top-0 z-[10001] transition-all duration-300 ${scrolled ? "backdrop-blur-md bg-white/60 dark:bg-black/40 border-b border-border/30" : "bg-transparent"} ${hidden ? "-translate-y-full opacity-0 pointer-events-none" : "translate-y-0 opacity-100"}`}>
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 md:pr-12 lg:pr-16">
           <div className="flex items-center">
             <a className="text-lg font-bold cursor-pointer select-none" onClick={() => handleNavClick('home')}>NDM</a>
           </div>
