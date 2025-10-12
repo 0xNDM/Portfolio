@@ -71,3 +71,28 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Docker image and Fly.io deployment
+
+This repository includes a multi-stage `Dockerfile` that builds the Vite app and serves the `dist/` directory with `nginx`.
+
+Quick steps to build and run locally:
+
+```powershell
+# Build the image (from project root)
+docker build -t portfolio:latest .
+
+# Run the container locally (map port 8080 to container port 80)
+docker run --rm -p 8080:80 portfolio:latest
+```
+
+Deploying to Fly.io (high-level):
+
+1. Install Fly CLI: https://fly.io/docs/hands-on/install-flyctl/
+2. Login and create an app: `flyctl launch` (follow prompts). You may choose a region and name.
+3. Build and deploy with: `flyctl deploy --local-only -i portfolio:latest` or let Fly build the image from the repository.
+
+Notes:
+
+- The `nginx.conf` included supports SPA routing (fallback to `index.html`).
+- If you prefer a smaller runtime, you can swap nginx for a static server like `caddy` or `serve`.
