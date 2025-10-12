@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,9 +7,9 @@ import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 
 const socials = [
-  { icon: Github, label: "GitHub", href: "#" },
+  { icon: Github, label: "GitHub", href: "https://github.com/0xNDM/" },
   { icon: Linkedin, label: "LinkedIn", href: "#" },
-  { icon: Twitter, label: "Twitter", href: "#" },
+  { icon: Send, label: "Telegram", href: "https://t.me/NDM_0x" },
   { icon: Mail, label: "Email", href: "mailto:hello@example.com" },
 ];
 
