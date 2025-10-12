@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -184,10 +184,16 @@ const Projects = () => {
             </div>
           </div>
         </div>
-        {/* Back to top button */}
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top" className="fixed bottom-6 right-6 z-50 bg-primary/90 text-primary-foreground p-3 rounded-full shadow-lg hover:scale-105 transition-transform">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3.293 9.293a1 1 0 011.414 0L10 14.586l5.293-5.293a1 1 0 011.414 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
-        </button>
+        {/* Back to top button (stylish) */}
+        <motion.button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+          whileHover={{ scale: 1.08, y: -4 }}
+          whileTap={{ scale: 0.95 }}
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary to-secondary text-white p-3.5 rounded-full shadow-2xl hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)] transform transition-all duration-300 ring-4 ring-primary/25"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </motion.button>
       </div>
     </section>
   );
