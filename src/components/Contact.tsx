@@ -8,15 +8,27 @@ import { useRef, useState } from "react";
 
 const socials = [
   { icon: Github, label: "GitHub", href: "https://github.com/0xNDM/" },
-  { icon: Linkedin, label: "LinkedIn", href: "#" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/nathnaeldagnaw/" },
   { icon: Send, label: "Telegram", href: "https://t.me/NDM_0x" },
-  { icon: Mail, label: "Email", href: "mailto:hello@example.com" },
+  { icon: Mail, label: "Email", href: "mailto:hello@nathnael.me" },
 ];
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [focused, setFocused] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = (form.get('name') as string || '').trim();
+    const email = (form.get('email') as string || '').trim();
+    const message = (form.get('message') as string || '').trim();
+
+    const subject = encodeURIComponent(`Portfolio inquiry from ${name || 'someone'}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    window.location.href = `mailto:hello@nathnael.me?subject=${subject}&body=${body}`;
+  };
 
   return (
     <section ref={ref} id="contact" className="py-24 relative">
@@ -41,12 +53,14 @@ const Contact = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            onSubmit={handleSubmit}
           >
             <motion.div
               animate={focused === 'name' ? { scale: 1.02 } : { scale: 1 }}
               transition={{ duration: 0.2 }}
             >
               <Input
+                name="name"
                 placeholder="Your Name"
                 className="bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all"
                 onFocus={() => setFocused('name')}
@@ -59,6 +73,7 @@ const Contact = () => {
               transition={{ duration: 0.2 }}
             >
               <Input
+                name="email"
                 type="email"
                 placeholder="Your Email"
                 className="bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all"
@@ -72,6 +87,7 @@ const Contact = () => {
               transition={{ duration: 0.2 }}
             >
               <Textarea
+                name="message"
                 placeholder="Your Message"
                 rows={6}
                 className="bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all resize-none"
@@ -130,7 +146,7 @@ const Contact = () => {
         animate={isInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        <p>© {new Date().getFullYear()} NDM. All Rights Reserved.</p>
+        <p>© {new Date().getFullYear()} Nathnael. All Rights Reserved.</p>
       </motion.div>
     </section>
   );

@@ -63,7 +63,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:pr-12 lg:pr-16">
           <div className="flex items-center">
-            <a className="text-lg font-bold cursor-pointer select-none" onClick={() => handleNavClick('home')}>NDM</a>
+            <a className="text-lg font-bold cursor-pointer select-none" onClick={() => handleNavClick('home')}>Nathnael</a>
           </div>
 
           {/* Desktop nav */}

@@ -1,18 +1,18 @@
 import React from 'react';
 import pythonIcon from '@/assets/Icons/python.svg';
-import djangoIcon from '@/assets/Icons/django.svg';
-import flaskIcon from '@/assets/Icons/flask.svg';
 import numpyIcon from '@/assets/Icons/numpy.svg';
 import seleniumIcon from '@/assets/Icons/selenium.svg';
-import blockchainIcon from '@/assets/Icons/blockchain.png';
 
 const stacks = [
   { name: 'Python', src: pythonIcon },
-  { name: 'Django', src: djangoIcon },
-  { name: 'Flask', src: flaskIcon, whiteBg: true },
+  { name: 'Pandas', badge: 'pd' },
   { name: 'NumPy', src: numpyIcon, whiteBg: true },
   { name: 'Selenium', src: seleniumIcon, whiteBg: true },
-  { name: 'Blockchain', src: blockchainIcon, whiteBg: true },
+  { name: 'SQL', badge: 'SQL' },
+  { name: 'Spreadsheets', badge: 'Sheets' },
+  { name: 'Power BI', badge: 'PBI' },
+  { name: 'Tableau', badge: 'Tb' },
+  { name: 'R', badge: 'R' },
 ];
 
 const TechStack: React.FC = () => {
@@ -24,16 +24,22 @@ const TechStack: React.FC = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Tools and technologies I use to build reliable, high-quality applications.</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 md:gap-6 justify-items-center">
           {stacks.map((s) => (
             <div key={s.name} className="flex flex-col items-center w-28 text-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:scale-105 transition-transform duration-200">
               <div className="w-12 h-12 mb-2 flex items-center justify-center">
-                {s.whiteBg ? (
-                  <div className="bg-white rounded-md p-1">
+                {s.src ? (
+                  s.whiteBg ? (
+                    <div className="bg-white rounded-md p-1">
+                      <img src={s.src} alt={s.name} className="w-12 h-12" />
+                    </div>
+                  ) : (
                     <img src={s.src} alt={s.name} className="w-12 h-12" />
-                  </div>
+                  )
                 ) : (
-                  <img src={s.src} alt={s.name} className="w-12 h-12" />
+                  <div className="w-12 h-12 rounded-md bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm">
+                    {s.badge}
+                  </div>
                 )}
               </div>
               <span className="font-medium">{s.name}</span>

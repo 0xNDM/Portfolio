@@ -7,23 +7,23 @@ import { useRef } from "react";
 const skills = [
   {
     icon: Code2,
-    title: "Development",
-    description: "Building robust applications with modern technologies and best practices",
+    title: "Analytics Engineering",
+    description: "Building reliable data pipelines, reusable queries, and automation to keep analysis repeatable.",
   },
   {
     icon: Palette,
-    title: "Design",
-    description: "Creating beautiful and intuitive user interfaces that users love",
+    title: "Data Storytelling",
+    description: "Designing visuals and dashboards that make trends, risks, and opportunities obvious at a glance.",
   },
   {
     icon: Rocket,
-    title: "Performance",
-    description: "Optimizing for speed and efficiency across all platforms",
+    title: "Decision Support",
+    description: "Translating business questions into metrics, experiments, and clear recommendations.",
   },
   {
     icon: Sparkles,
-    title: "Innovation",
-    description: "Exploring cutting-edge solutions and pushing creative boundaries",
+    title: "Quality & Governance",
+    description: "Documenting assumptions, validating sources, and keeping outputs trustworthy end to end.",
   },
 ];
 
@@ -44,7 +44,7 @@ const About = () => {
             About Me
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Hello! I'm <span className="gradient-text font-bold">NDM</span>, a Python Developer who also works as a blockchain researcher and tester. I have a passion for building innovative solutions and ensuring their quality and security.
+            Hello! I'm <span className="gradient-text font-bold">Nathnael</span>, a data analyst focused on turning raw data into decisions. I design pipelines, validate sources, and present insights that teams can act on with confidence.
           </p>
         </motion.div>
 

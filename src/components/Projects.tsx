@@ -1,29 +1,22 @@
-import { ExternalLink, Github, ArrowUp } from "lucide-react";
+import { ExternalLink, ArrowUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { toast } from "@/components/ui/sonner";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import handyImg from "@/assets/Images/Handy.png";
-import ttsImg from "@/assets/Images/TTS.jpg";
+import { Link } from "react-router-dom";
+import ywhImg from "@/assets/Images/ywh.png";
 
 const projects = [
   {
-    title: "Handy | AI Powered telegram bot",
-    description: "An AI powered bot that can help you with your daily tasks.",
-    tags: ["Telegram", "AI", "Bot"],
-    gradient: "from-indigo-500 to-purple-500",
-    demo: "https://t.me/ZeDS_Bot",
-    img: handyImg,
-  },
-  {
-    title: "TTS Project",
-    description: "A Text-to-Speech application with advanced voice synthesis capabilities.",
-    tags: ["Audio", "Synthesis", "TTS"],
-    gradient: "from-orange-400 to-rose-400",
+    title: "YouTube Watch-History Analysis",
+    description: "Analyzed and visualized YouTube watch history to surface habits, trends, and content preferences.",
+    tags: ["Python", "Pandas", "Visualization", "SQL"],
+    gradient: "from-cyan-500 to-blue-500",
     demo: "#",
-    img: ttsImg,
+    demoPath: "/projects/ywh",
+    img: ywhImg,
   },
 ];
 
@@ -45,11 +38,11 @@ const Projects = () => {
             Featured Projects
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A selection of my recent work showcasing innovation and creativity
+            A selection of recent analytics work focused on clear, decision-ready insights
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -74,7 +67,8 @@ const Projects = () => {
                     {project.img && (
                       <div className={`flex-shrink-0 ${index % 2 === 0 ? '' : 'md:order-last'}`}>
                         <div className="rounded-3xl p-1 bg-gradient-to-br from-primary/40 via-secondary/30 to-accent/20 hover:from-primary/60 hover:via-secondary/40 transition-all">
-                            <div className="relative bg-card/60 backdrop-blur-md rounded-2xl p-3 w-56 h-40 flex items-center justify-center overflow-hidden">
+                          <Link to={project.demoPath || '#'} className="block">
+                            <div className="relative bg-card/60 backdrop-blur-md rounded-2xl p-3 w-full max-w-4xl h-80 md:h-96 flex items-center justify-center overflow-hidden">
                               <motion.img
                                 src={project.img}
                                 alt={project.title}
@@ -84,23 +78,27 @@ const Projects = () => {
                                 transition={{ duration: 0.7, ease: "easeOut" }}
                                 style={{ transformOrigin: index % 2 === 0 ? 'left center' : 'right center' }}
                               />
-                              {/* subtle decorative overlay (shimmer) */}
-                              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.00)_0%,rgba(255,255,255,0.06)_50%,rgba(255,255,255,0.00)_100%)] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
-                              {/* skew mask */}
-                              <div className="pointer-events-none absolute -inset-4 transform -skew-x-3 bg-gradient-to-r from-transparent via-white/2 to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-700" />
+                              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
                             </div>
-                          </div>
+                          </Link>
+                          {/* subtle decorative overlay (shimmer) */}
+                          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.00)_0%,rgba(255,255,255,0.06)_50%,rgba(255,255,255,0.00)_100%)] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
+                          {/* skew mask */}
+                          <div className="pointer-events-none absolute -inset-4 transform -skew-x-3 bg-gradient-to-r from-transparent via-white/2 to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-700" />
+                        </div>
                       </div>
                     )}
 
                     <div className="flex-1 text-left">
-                      <motion.h3
-                        className="text-2xl font-semibold mb-3"
+                      <motion.div
                         animate={{ color: hoveredIndex === index ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
                         transition={{ duration: 0.3 }}
+                        className="mb-3"
                       >
-                        {project.title}
-                      </motion.h3>
+                        <Link to={project.demoPath || '#'} className="text-2xl font-semibold hover:text-primary transition-colors">
+                          {project.title}
+                        </Link>
+                      </motion.div>
                       <p className="text-muted-foreground mb-4">
                         {project.description}
                       </p>
@@ -129,7 +127,9 @@ const Projects = () => {
                           </motion.div>
                         ) : (
                           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                            <Button size="sm" variant="outline" className="border-primary/50">Details</Button>
+                            <Link to={project.demoPath || '#'}>
+                              <Button size="sm" variant="outline" className="border-primary/50">Project Page</Button>
+                            </Link>
                           </motion.div>
                         )}
                       </div>

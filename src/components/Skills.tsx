@@ -4,12 +4,12 @@ import { useRef } from "react";
 import { Code2, Palette, Database, Smartphone, Zap, Globe } from "lucide-react";
 
 const skills = [
-  { name: 'Python', description: 'Python and libraries for web, data and automation.' },
-  { name: 'Django', description: 'Full-stack web apps with Django and REST APIs.' },
-  { name: 'Flask', description: 'Lightweight services and APIs using Flask.' },
-  { name: 'NumPy', description: 'Numerical computing and data analysis with NumPy.' },
-  { name: 'Selenium', description: 'Automated testing and browser automation with Selenium.' },
-  { name: 'Blockchain', description: 'Research, testing and tooling for blockchain systems.' },
+  { name: 'SQL', description: 'Analytic queries, window functions, CTEs, and performance-aware data modeling.' },
+  { name: 'Spreadsheets', description: 'Excel and Google Sheets for quick analysis, modeling, and stakeholder-friendly deliverables.' },
+  { name: 'Data Visualization', description: 'Dashboards and storytelling in Tableau and Power BI to surface trends and KPIs.' },
+  { name: 'Python', description: 'Pandas, NumPy, matplotlib, and Selenium for data wrangling, automation, and validation.' },
+  { name: 'R', description: 'Statistical analysis, exploration, and reproducible reporting with tidyverse tooling.' },
+  { name: 'End-to-End Analysis', description: 'From data collection and cleaning to insight delivery and experiment readouts.' },
 ];
 
 const Skills = () => {
@@ -29,7 +29,7 @@ const Skills = () => {
             Skills & Experience
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            My expertise spans Python development, web frameworks like Django & Flask, data tooling such as NumPy, automated testing with Selenium, and blockchain research and tooling.
+            My expertise spans SQL, spreadsheets, analytics tooling, and Python/R for wrangling, validation, visualization, and delivering end-to-end insights stakeholders can trust.
           </p>
         </motion.div>
 

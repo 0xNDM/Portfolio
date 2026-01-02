@@ -43,7 +43,7 @@ const Hero = () => {
             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Hi, I'm <span className="gradient-text">NDM</span>
+            Hi, I'm <span className="gradient-text">Nathnael</span>
           </motion.h1>
           
           <motion.p
@@ -52,7 +52,7 @@ const Hero = () => {
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            A Python Developer and Blockchain Researcher and Tester building intelligent applications and robust testing solutions.
+            A data analyst who turns messy datasets into clear, actionable stories with clean pipelines, thoughtful visuals, and trustworthy insights.
           </motion.p>
           
           <motion.div
