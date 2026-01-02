@@ -129,7 +129,7 @@ const ProjectYWH = () => {
               <ul className="list-disc list-inside text-muted-foreground space-y-1">
                 <li>Final 2025 anonymized table with local hour + day-of-week features</li>
                 <li>Daily activity score table with hours, frequency, and levels</li>
-                <li>Intermediate checkpoints to trace each transformation stage</li>
+                <li>Visualization-ready CSVs for dashboards/plots</li>
               </ul>
             </div>
           </div>
