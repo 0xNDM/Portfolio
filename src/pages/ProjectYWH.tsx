@@ -147,11 +147,8 @@ const ProjectYWH = () => {
         <div className="mt-10 flex flex-wrap gap-4">
           <Button asChild variant="outline">
             <a href="https://github.com/0xNDM/YooTube_Watch-history_Analysis" target="_blank" rel="noopener noreferrer">
-              <ExternalLink className="w-4 h-4 mr-2" /> View repo & procedures
+              <ExternalLink className="w-4 h-4 mr-2" /> Github — Python + SQL repo for collection, cleaning, analysis, and EDA
             </a>
-          </Button>
-          <Button asChild>
-            <Link to="/projects/ywh" aria-current="page">You are here</Link>
           </Button>
         </div>
       </main>

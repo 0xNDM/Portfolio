@@ -2,17 +2,23 @@ import React from 'react';
 import pythonIcon from '@/assets/Icons/python.svg';
 import numpyIcon from '@/assets/Icons/numpy.svg';
 import seleniumIcon from '@/assets/Icons/selenium.svg';
+import pandasIcon from '@/assets/Icons/Pandas.svg';
+import sqlIcon from '@/assets/Icons/SQL.svg';
+import spreadsheetsIcon from '@/assets/Icons/spreadsheets.svg';
+import powerBiIcon from '@/assets/Icons/power-bi.svg';
+import tableauIcon from '@/assets/Icons/tableau.svg';
+import rIcon from '@/assets/Icons/r.png';
 
 const stacks = [
   { name: 'Python', src: pythonIcon },
-  { name: 'Pandas', badge: 'pd' },
+  { name: 'Pandas', src: pandasIcon, whiteBg: true },
   { name: 'NumPy', src: numpyIcon, whiteBg: true },
   { name: 'Selenium', src: seleniumIcon, whiteBg: true },
-  { name: 'SQL', badge: 'SQL' },
-  { name: 'Spreadsheets', badge: 'Sheets' },
-  { name: 'Power BI', badge: 'PBI' },
-  { name: 'Tableau', badge: 'Tb' },
-  { name: 'R', badge: 'R' },
+  { name: 'SQL', src: sqlIcon },
+  { name: 'Spreadsheets', src: spreadsheetsIcon },
+  { name: 'Power BI', src: powerBiIcon },
+  { name: 'Tableau', src: tableauIcon },
+  { name: 'R', src: rIcon },
 ];
 
 const TechStack: React.FC = () => {
