@@ -24,7 +24,7 @@ const TechStack: React.FC = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Tools and technologies I use to build reliable, high-quality applications.</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 md:gap-6 justify-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5 md:gap-6 justify-items-center">
           {stacks.map((s) => (
             <div key={s.name} className="flex flex-col items-center w-28 text-center p-4 rounded-xl bg-card/50 backdrop-blur-sm border border-border/50 hover:scale-105 transition-transform duration-200">
               <div className="w-12 h-12 mb-2 flex items-center justify-center">
