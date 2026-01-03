@@ -11,7 +11,7 @@ const DarkModeToggle = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-  className="fixed top-4 right-4 z-40 md:top-4 md:right-6 lg:top-4 lg:right-8"
+      className="fixed top-4 right-4 z-[10002] md:top-4 md:right-6 lg:top-4 lg:right-8"
     >
       <Button
         variant="outline"

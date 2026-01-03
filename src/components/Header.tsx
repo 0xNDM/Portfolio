@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -16,6 +16,19 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return false;
+
+    const headerEl = document.querySelector("header") as HTMLElement | null;
+    const headerHeight = headerEl?.offsetHeight ?? 64;
+    const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
+    window.scrollTo({ top, behavior: "smooth" });
+    return true;
+  };
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -40,13 +53,13 @@ const Header = () => {
 
   const handleNavClick = (id: string) => {
     setOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      // calculate offset so the section is visible below the fixed header
-      const headerEl = document.querySelector('header');
-      const headerHeight = headerEl ? (headerEl as HTMLElement).offsetHeight : 64;
-      const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - 8;
-      window.scrollTo({ top, behavior: 'smooth' });
+
+    // If the target section exists on the current page, scroll to it.
+    if (scrollToSection(id)) return;
+
+    // Otherwise navigate home with a hash so we can scroll after routing.
+    if (location.pathname !== "/") {
+      navigate(`/#${id}`);
     }
   };
 
@@ -60,8 +73,24 @@ const Header = () => {
 
   const handleLogoClick = () => {
     setOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (location.pathname !== "/") {
+      navigate("/");
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
+
+  // When arriving on "/" with a hash (e.g., from project pages), wait for sections to mount then scroll.
+  useEffect(() => {
+    if (location.pathname !== "/" || !location.hash) return;
+
+    const id = decodeURIComponent(location.hash.replace("#", ""));
+    const timer = window.setTimeout(() => {
+      scrollToSection(id);
+    }, 30);
+
+    return () => window.clearTimeout(timer);
+  }, [location.pathname, location.hash]);
 
   return (
     // slightly higher z-index and ensure header content has right padding on md+ to avoid overlap with fixed controls
