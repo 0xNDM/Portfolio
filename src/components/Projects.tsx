@@ -6,29 +6,27 @@ import { toast } from "@/components/ui/sonner";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import ywhImg from "@/assets/Images/ywh.png";
+import ywhAnalyzerImg from "@/assets/Images/ywh-analyzer.png";
 
 const projects = [
   {
-    title: "YouTube Watch-History Analysis",
+    title: "My YouTube Watch History Analysis",
     description: "Analyzed and visualized YouTube watch history to surface habits, trends, and content preferences.",
-    tags: ["Python", "Pandas", "Visualization", "SQL"],
+    tags: ["Python", "Pandas", "SQL", "Power BI"],
     gradient: "from-cyan-500 to-blue-500",
     demo: "#",
     demoPath: "/projects/ywh",
-    img: ywhImg,
     layout: "vertical", // stack content so title/description sit below the image
   },
   {
     title: "YouTube Analyzer",
     description:
-      "Web app powered by a secure Streamlit backend. Upload your watch-history.json and get private, server-processed insights and visualizations.",
+      "Discover your YouTube habits like never before! Upload your watch-history.json and get personalized insights, interactive charts, and visualizations that reveal your viewing patterns over time.",
     tags: ["Streamlit", "Pandas", "Plotly"],
     gradient: "from-rose-500 to-red-500",
     externalUrl: "https://ywh.nathnael.me/",
     repo: "https://github.com/0xNDM/YWH_Analyzer",
-    // Place the pasted banner image into public/ as ywh-analyzer-banner.png
-    img: "/ywh-analyzer-banner.png",
+    layout: "vertical",
   },
 ];
 
@@ -75,70 +73,25 @@ const Projects = () => {
                 />
 
                 <div className="p-6 relative z-10">
-                  <div className={`flex flex-col ${project.layout === 'vertical' ? '' : 'md:flex-row'} items-center md:items-start gap-6`}>
-                    {project.img && (
-                      <div className={`flex-shrink-0 ${index % 2 === 0 ? '' : 'md:order-last'}`}>
-                        <div className="rounded-3xl p-1 bg-gradient-to-br from-primary/40 via-secondary/30 to-accent/20 hover:from-primary/60 hover:via-secondary/40 transition-all">
-                          {project.externalUrl ? (
-                            <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="block">
-                              <div className="relative bg-card/60 backdrop-blur-md rounded-2xl p-3 w-full max-w-4xl h-80 md:h-96 flex items-center justify-center overflow-hidden">
-                                <motion.img
-                                  src={project.img}
-                                  alt={project.title}
-                                  className="w-full h-full object-cover rounded-md"
-                                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                                  transition={{ duration: 0.7, ease: "easeOut" }}
-                                  style={{ transformOrigin: index % 2 === 0 ? 'left center' : 'right center' }}
-                                  onError={(e) => {
-                                    // hide image if not present yet
-                                    (e.currentTarget as HTMLImageElement).style.display = 'none';
-                                  }}
-                                />
-                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-                              </div>
-                            </a>
-                          ) : (
-                            <Link to={project.demoPath || '#'} className="block">
-                              <div className="relative bg-card/60 backdrop-blur-md rounded-2xl p-3 w-full max-w-4xl h-80 md:h-96 flex items-center justify-center overflow-hidden">
-                                <motion.img
-                                  src={project.img}
-                                  alt={project.title}
-                                  className="w-full h-full object-cover rounded-md"
-                                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
-                                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                                  transition={{ duration: 0.7, ease: "easeOut" }}
-                                  style={{ transformOrigin: index % 2 === 0 ? 'left center' : 'right center' }}
-                                />
-                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-                              </div>
-                            </Link>
-                          )}
-                          {/* subtle decorative overlay (shimmer) */}
-                          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.00)_0%,rgba(255,255,255,0.06)_50%,rgba(255,255,255,0.00)_100%)] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
-                          {/* skew mask */}
-                          <div className="pointer-events-none absolute -inset-4 transform -skew-x-3 bg-gradient-to-r from-transparent via-white/2 to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-700" />
-                        </div>
-                      </div>
-                    )}
-
-                      <div className="flex-1 text-left">
+                  <div className={`flex flex-col ${project.layout === 'vertical' ? '' : 'md:flex-row'} items-start gap-6`}>
+                    <div className="flex-1 text-left">
+                      <div className="h-1 w-16 bg-gradient-to-r from-primary to-secondary rounded-full mb-4" />
                       <motion.div
-                        animate={{ color: hoveredIndex === index ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
+                        animate={{ y: hoveredIndex === index ? -2 : 0 }}
                         transition={{ duration: 0.3 }}
                         className="mb-3"
                       >
                         {project.externalUrl ? (
-                          <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="text-2xl font-semibold hover:text-primary transition-colors">
+                          <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:opacity-90 transition">
                             {project.title}
                           </a>
                         ) : (
-                          <Link to={project.demoPath || '#'} className="text-2xl font-semibold hover:text-primary transition-colors">
+                          <Link to={project.demoPath || '#'} className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:opacity-90 transition">
                             {project.title}
                           </Link>
                         )}
                       </motion.div>
-                      <p className="text-muted-foreground mb-4">
+                      <p className="text-muted-foreground mb-4 bg-card/60 border border-border/60 rounded-xl p-4">
                         {project.description}
                       </p>
 

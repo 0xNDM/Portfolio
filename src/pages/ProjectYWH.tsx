@@ -27,7 +27,7 @@ const ProjectYWH = () => {
 
         <div className="mb-6">
           <p className="text-sm uppercase tracking-[0.2em] text-primary/80 font-semibold">Featured Project</p>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-3">YouTube Watch-History Analysis</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-3">My YouTube Watch History Analysis</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             A 2025 data story built from two YouTube accounts (Main + Educational). I cleaned, enriched, and anonymized Google Takeout history, pulled full metadata via the YouTube Data API, and scored daily activity to reveal how, when, and what I watched.
           </p>
