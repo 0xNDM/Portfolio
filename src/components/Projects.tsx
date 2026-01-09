@@ -75,18 +75,18 @@ const Projects = () => {
                 <div className="p-6 relative z-10">
                   <div className={`flex flex-col ${project.layout === 'vertical' ? '' : 'md:flex-row'} items-start gap-6`}>
                     <div className="flex-1 text-left">
-                      <div className="h-1 w-16 bg-gradient-to-r from-primary to-secondary rounded-full mb-4" />
+                      <div className="h-1 w-16 bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 rounded-full mb-4" />
                       <motion.div
                         animate={{ y: hoveredIndex === index ? -2 : 0 }}
                         transition={{ duration: 0.3 }}
                         className="mb-3"
                       >
                         {project.externalUrl ? (
-                          <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:opacity-90 transition">
+                          <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 bg-clip-text text-transparent hover:opacity-90 transition">
                             {project.title}
                           </a>
                         ) : (
-                          <Link to={project.demoPath || '#'} className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent hover:opacity-90 transition">
+                          <Link to={project.demoPath || '#'} className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 bg-clip-text text-transparent hover:opacity-90 transition">
                             {project.title}
                           </Link>
                         )}
@@ -112,7 +112,7 @@ const Projects = () => {
                           <>
                             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                               <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">
-                                <Button size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
+                                <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
                                   <ExternalLink className="w-4 h-4 mr-2" />
                                   Launch App
                                 </Button>
