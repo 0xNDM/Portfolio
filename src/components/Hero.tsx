@@ -1,5 +1,4 @@
-import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
@@ -8,10 +7,6 @@ import { useRef } from "react";
 const Hero = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-
-  const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <section id="home" ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -52,34 +47,40 @@ const Hero = () => {
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            A data analyst who turns messy datasets into clear, actionable stories with clean pipelines, thoughtful visuals, and trustworthy insights.
+            I help organizations turn messy data into clear, actionable insights. From building robust pipelines to designing thoughtful visuals, I make sure every dataset tells a story you can trust and act on.
           </motion.p>
-          
+
           <motion.div
-            className="flex gap-4 justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex items-center justify-center gap-4"
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button 
-                size="lg" 
-                onClick={scrollToProjects}
-                className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-primary-foreground"
-              >
-                View My Work
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="border-primary/50 hover:bg-primary/10"
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Contact Me
-              </Button>
-            </motion.div>
+            <a
+              href="https://www.linkedin.com/in/nathnaeldagnaw/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 bg-card/50 text-foreground/90 shadow-sm transition hover:border-primary hover:bg-primary/10 hover:shadow-md"
+            >
+              <Linkedin className="w-6 h-6" />
+            </a>
+            <a
+              href="https://github.com/0xNDM/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 bg-card/50 text-foreground/90 shadow-sm transition hover:border-primary hover:bg-primary/10 hover:shadow-md"
+            >
+              <Github className="w-6 h-6" />
+            </a>
+            <a
+              href="mailto:hello@nathnael.me"
+              aria-label="Email"
+              className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-primary/40 bg-card/50 text-foreground/90 shadow-sm transition hover:border-primary hover:bg-primary/10 hover:shadow-md"
+            >
+              <Mail className="w-6 h-6" />
+            </a>
           </motion.div>
         </motion.div>
 

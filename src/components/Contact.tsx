@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,7 +9,6 @@ import { useRef, useState } from "react";
 const socials = [
   { icon: Github, label: "GitHub", href: "https://github.com/0xNDM/" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/nathnaeldagnaw/" },
-  { icon: Send, label: "Telegram", href: "https://t.me/NDM_0x" },
   { icon: Mail, label: "Email", href: "mailto:hello@nathnael.me" },
 ];
 
@@ -115,6 +114,7 @@ const Contact = () => {
           >
             {socials.map((social, index) => {
               const Icon = social.icon;
+              const isEmail = social.href.startsWith("mailto:");
               return (
                 <motion.div
                   key={index}
@@ -127,7 +127,7 @@ const Contact = () => {
                     className="border-primary/50 hover:bg-primary/10 hover:border-primary group"
                     asChild
                   >
-                    <a href={social.href} target="_blank" rel="noopener noreferrer">
+                    <a href={social.href} target={isEmail ? undefined : "_blank"} rel={isEmail ? undefined : "noopener noreferrer"}>
                       <Icon className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
                       {social.label}
                     </a>
