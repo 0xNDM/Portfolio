@@ -62,7 +62,7 @@ const ProGear = () => {
 
         <section className="mb-10">
           <p className="text-sm uppercase tracking-[0.2em] text-primary/80 font-semibold">Featured Project</p>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-4">ProGear Sports Marketing Analytics</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-4">Marketing Performance & Customer Insights Analysis - ProGear Sports</h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             End-to-end marketing analytics project analyzing declining engagement and conversion using SQL, Python NLP, and Power BI.
           </p>
@@ -86,7 +86,7 @@ const ProGear = () => {
             </Button>
             <Button asChild variant="outline">
               <a href="/progear/Marketing_Analytics_Dashboard.pbix" download>
-                <Download className="w-4 h-4 mr-2" /> Download PBIX
+                <Download className="w-4 h-4 mr-2" /> Download Dynamic Dashboard (PBIX)
               </a>
             </Button>
             <Button asChild variant="outline">
@@ -126,6 +126,44 @@ const ProGear = () => {
                 <li>Discovered spend inefficiencies and product-level optimization opportunities</li>
                 <li>Delivered prioritized, data-driven business recommendations</li>
               </ul>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-semibold mb-4">Key Analytics Components</h2>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="bg-card/50 border border-border/60 rounded-2xl p-5">
+                <p className="text-lg font-semibold">1. Marketing Campaign Performance Analysis</p>
+                <p className="text-muted-foreground mt-2">
+                  Evaluated reach, CTR, and conversion efficiency across channels.
+                </p>
+                <p className="text-muted-foreground mt-2">
+                  Identified deterioration in campaign performance over time.
+                </p>
+              </div>
+              <div className="bg-card/50 border border-border/60 rounded-2xl p-5">
+                <p className="text-lg font-semibold">2. Conversion Funnel Analysis</p>
+                <p className="text-muted-foreground mt-2">Tracked journey from engagement -&gt; purchase.</p>
+                <p className="text-muted-foreground mt-2">
+                  Identified declining funnel efficiency between 2023 and 2025.
+                </p>
+              </div>
+              <div className="bg-card/50 border border-border/60 rounded-2xl p-5">
+                <p className="text-lg font-semibold">3. Customer Segmentation</p>
+                <p className="text-muted-foreground mt-2">
+                  Built demographic segmentation using age groups and geography.
+                </p>
+                <p className="text-muted-foreground mt-2">Analyzed engagement patterns by segment.</p>
+              </div>
+              <div className="bg-card/50 border border-border/60 rounded-2xl p-5">
+                <p className="text-lg font-semibold">4. Customer Sentiment Analysis</p>
+                <p className="text-muted-foreground mt-2">
+                  Used transformer NLP to analyze product reviews.
+                </p>
+                <p className="text-muted-foreground mt-2">
+                  Identified sentiment distribution across demographics and products.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -274,24 +312,24 @@ def analyze_sentiment(text):
 
           <div className="bg-card/50 border border-border/60 rounded-2xl p-6">
             <div className="flex flex-wrap gap-3">
+              <Button asChild variant="outline" className="whitespace-nowrap">
+                <a href="/progear/Marketing_Analytics_Dashboard.pbix" download>
+                  <Download className="w-4 h-4 mr-2" /> Download Dynamic Dashboard (PBIX)
+                </a>
+              </Button>
+              <Button asChild variant="outline" className="whitespace-nowrap">
+                <a href="/progear/Marketing_Analytics_Report.pptx" download>
+                  <Download className="w-4 h-4 mr-2" /> Download Full Report (PPT)
+                </a>
+              </Button>
+              <Button asChild variant="outline" className="whitespace-nowrap">
+                <a href="/progear/Marketing_Analytics_Static_Dashboard.pdf" download="Marketing_Analytics_Static_Dashboard.pdf">
+                  <Download className="w-4 h-4 mr-2" /> Download Static Dashboard (PDF)
+                </a>
+              </Button>
               <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
                 <a href="https://github.com/0xNDM/ProGear_Sports_Marketing_Analytics/tree/main" target="_blank" rel="noopener noreferrer">
                   <ExternalLink className="w-4 h-4 mr-2" /> View GitHub Repository
-                </a>
-              </Button>
-              <Button asChild variant="outline">
-                <a href="/progear/Marketing_Analytics_Dashboard.pbix" download>
-                  <Download className="w-4 h-4 mr-2" /> Download PBIX
-                </a>
-              </Button>
-              <Button asChild variant="outline">
-                <a href="/progear/Marketing_Analytics_Report.pptx" download>
-                  <Download className="w-4 h-4 mr-2" /> Download Full PPT Report
-                </a>
-              </Button>
-              <Button asChild variant="outline">
-                <a href="/progear/Marketing_Analytics_Static_Dashboard.pdf" download="Marketing_Analytics_Static_Dashboard.pdf">
-                  <Download className="w-4 h-4 mr-2" /> Download Static PDF Dashboard
                 </a>
               </Button>
             </div>

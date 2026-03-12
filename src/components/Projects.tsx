@@ -11,10 +11,28 @@ import ywhImg from "@/assets/Images/ywh.png";
 
 const projects = [
   {
-    title: "ProGear Sports Marketing Analytics",
+    title: "Marketing Performance & Customer Insights Analysis - ProGear Sports",
     description:
       "End-to-end marketing analytics project analyzing declining engagement and conversion using SQL, Python NLP, and Power BI.",
     tags: ["SQL Server", "Python", "Transformers", "Power BI"],
+    insightTags: [
+      {
+        label: "Performance Analysis",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+      {
+        label: "Conversion Funnel Analysis",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+      {
+        label: "Customer Segmentation",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+      {
+        label: "Customer Sentiment Analysis",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+    ],
     gradient: "from-emerald-500 to-teal-500",
     demoPath: "/progear",
     repo: "https://github.com/0xNDM/ProGear_Sports_Marketing_Analytics/tree/main",
@@ -149,6 +167,20 @@ const Projects = () => {
                       <p className="text-muted-foreground mb-4 bg-card/60 border border-border/60 rounded-xl p-4">
                         {project.description}
                       </p>
+
+                      {project.insightTags && project.insightTags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {project.insightTags.map((tag, tagIndex) => (
+                            <motion.span
+                              key={`insight-${tagIndex}`}
+                              className={`px-3 py-1 text-sm rounded-full border ${tag.className}`}
+                              whileHover={{ scale: 1.1 }}
+                            >
+                              {tag.label}
+                            </motion.span>
+                          ))}
+                        </div>
+                      )}
 
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.tags.map((tag, tagIndex) => (
@@ -285,6 +317,20 @@ const Projects = () => {
                       <p className="text-muted-foreground mb-4 bg-card/60 border border-border/60 rounded-xl p-4">
                         {project.description}
                       </p>
+
+                      {project.insightTags && project.insightTags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {project.insightTags.map((tag, tagIndex) => (
+                            <motion.span
+                              key={`insight-${tagIndex}`}
+                              className={`px-3 py-1 text-sm rounded-full border ${tag.className}`}
+                              whileHover={{ scale: 1.1 }}
+                            >
+                              {tag.label}
+                            </motion.span>
+                          ))}
+                        </div>
+                      )}
 
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.tags.map((tag, tagIndex) => (
