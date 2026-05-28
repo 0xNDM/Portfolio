@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProjectYWH from "./pages/ProjectYWH";
 import ProGear from "./pages/ProGear";
+import BDU from "./pages/BDU";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/projects/ywh" element={<ProjectYWH />} />
           <Route path="/progear" element={<ProGear />} />
+          <Route path="/bdu" element={<BDU />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

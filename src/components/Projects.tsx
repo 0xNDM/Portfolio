@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import ywhAnalyzerImg from "@/assets/Images/ywh-analyzer.png";
 import dashboardOverviewImg from "@/assets/Images/dashboard_overview.png";
 import ywhImg from "@/assets/Images/ywh.png";
+import bduImg from "@/assets/Images/BDU Class of 2025.png";
 
 const projects = [
   {
@@ -41,6 +42,31 @@ const projects = [
     layout: "vertical",
   },
   {
+    title: "Analyzing Academic Outcomes — BDU Class of 2025",
+    description:
+      "University-wide dashboard for 1,749 students linking CGPA to national exit exam performance, with department-level deep dives and intervention signals.",
+    tags: ["Excel", "Looker Studio", "Data Cleaning", "BI"],
+    insightTags: [
+      {
+        label: "Correlation (0.56)",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+      {
+        label: "96.23% Pass Rate",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+      {
+        label: "Department Insights",
+        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
+      },
+    ],
+    gradient: "from-indigo-500 to-violet-500",
+    demoPath: "/bdu",
+    image: bduImg,
+    imageAlt: "BDU Class of 2025 performance dashboard banner",
+    layout: "vertical",
+  },
+  {
     title: "My YouTube Watch History Analysis",
     description: "Analyzed and visualized YouTube watch history to surface habits, trends, and content preferences.",
     tags: ["Python", "Pandas", "SQL", "Power BI"],
@@ -68,8 +94,9 @@ const projects = [
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [featuredProject, ...otherProjects] = projects;
+  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
+  const featuredProjects = projects.slice(0, 2);
+  const otherProjects = projects.slice(2);
 
   return (
     <section ref={ref} id="projects" className="py-24 relative">
@@ -88,23 +115,23 @@ const Projects = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 gap-8">
-          {[featuredProject].map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {featuredProjects.map((project, index) => (
             <motion.div
-              key={index}
+              key={project.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
+              onHoverStart={() => setHoveredKey(project.title)}
+              onHoverEnd={() => setHoveredKey(null)}
             >
               <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 h-full">
                 {/* Gradient background on hover */}
                 <motion.div
                   className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredIndex === index ? 0.1 : 0 }}
+                  animate={{ opacity: hoveredKey === project.title ? 0.1 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
 
@@ -150,7 +177,7 @@ const Projects = () => {
                     <div className="flex-1 text-left">
                       <div className="h-1 w-16 bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 rounded-full mb-4" />
                       <motion.div
-                        animate={{ y: hoveredIndex === index ? -2 : 0 }}
+                        animate={{ y: hoveredKey === project.title ? -2 : 0 }}
                         transition={{ duration: 0.3 }}
                         className="mb-3"
                       >
@@ -245,16 +272,16 @@ const Projects = () => {
               key={project.title}
               initial={{ opacity: 0, y: 50 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
+              transition={{ duration: 0.5, delay: (index + 2) * 0.1 }}
               whileHover={{ y: -10 }}
-              onHoverStart={() => setHoveredIndex(index + 1)}
-              onHoverEnd={() => setHoveredIndex(null)}
+              onHoverStart={() => setHoveredKey(project.title)}
+              onHoverEnd={() => setHoveredKey(null)}
             >
               <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 h-full">
                 <motion.div
                   className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredIndex === index + 1 ? 0.1 : 0 }}
+                  animate={{ opacity: hoveredKey === project.title ? 0.1 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
 
@@ -300,7 +327,7 @@ const Projects = () => {
                     <div className="flex-1 text-left">
                       <div className="h-1 w-16 bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 rounded-full mb-4" />
                       <motion.div
-                        animate={{ y: hoveredIndex === index + 1 ? -2 : 0 }}
+                        animate={{ y: hoveredKey === project.title ? -2 : 0 }}
                         transition={{ duration: 0.3 }}
                         className="mb-3"
                       >

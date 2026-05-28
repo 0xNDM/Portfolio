@@ -1,24 +1,22 @@
 import React from 'react';
 import pythonIcon from '@/assets/Icons/python.svg';
-import numpyIcon from '@/assets/Icons/numpy.svg';
-import seleniumIcon from '@/assets/Icons/selenium.svg';
-import pandasIcon from '@/assets/Icons/Pandas.svg';
 import sqlIcon from '@/assets/Icons/SQL.svg';
 import spreadsheetsIcon from '@/assets/Icons/spreadsheets.svg';
 import powerBiIcon from '@/assets/Icons/power-bi.svg';
-import tableauIcon from '@/assets/Icons/tableau.svg';
 import rIcon from '@/assets/Icons/r.png';
+import lookerIcon from '@/assets/Icons/Looker.svg';
+import ga4Icon from '@/assets/Icons/GA4.svg';
+import gtmIcon from '@/assets/Icons/GTM.svg';
 
 const stacks = [
-  { name: 'Python', src: pythonIcon },
-  { name: 'Pandas', src: pandasIcon, whiteBg: true },
-  { name: 'NumPy', src: numpyIcon, whiteBg: true },
-  { name: 'Selenium', src: seleniumIcon, whiteBg: true },
-  { name: 'SQL', src: sqlIcon },
   { name: 'Spreadsheets', src: spreadsheetsIcon },
-  { name: 'Power BI', src: powerBiIcon },
-  { name: 'Tableau', src: tableauIcon },
+  { name: 'SQL', src: sqlIcon },
+  { name: 'Python', src: pythonIcon },
   { name: 'R', src: rIcon },
+  { name: 'Power BI', src: powerBiIcon },
+  { name: 'Looker Studio', src: lookerIcon },
+  { name: 'GA4', src: ga4Icon },
+  { name: 'GTM', src: gtmIcon },
 ];
 
 const TechStack: React.FC = () => {
