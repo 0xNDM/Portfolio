@@ -137,8 +137,8 @@ const ProjectYWH = () => {
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">Methodological notes</h3>
             <ul className="list-disc list-inside text-muted-foreground space-y-1">
-              <li>Removed/private videos (~4–26% of events) are excluded because they lack reliable metadata.</li>
-              <li>Watch history logs start times only; I often download long videos for offline viewing, reducing overestimation bias.</li>
+              <li>Removed/private videos (~4.26% of events) are excluded because they lack reliable metadata.</li>
+              <li>YouTube watch history records only video start times, as this is the only data YouTube provides. Additionally, I often download long videos for offline viewing using external tools, which helps reduce the upward bias caused by missing watch-duration data.</li>
               <li>Activity score weighting: 70% daily hours, 30% frequency, with percentile caps to blunt extreme sessions.</li>
             </ul>
           </div>
