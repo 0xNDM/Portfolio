@@ -1,429 +1,305 @@
-import { ExternalLink, ArrowUp, Github } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { ExternalLink, Github, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import ywhAnalyzerImg from "@/assets/Images/ywh-analyzer.png";
-import dashboardOverviewImg from "@/assets/Images/dashboard_overview.png";
-import ywhImg from "@/assets/Images/ywh.png";
-import bduImg from "@/assets/Images/BDU Class of 2025.png";
 
-const projects = [
+import dashboardOverviewImg from "@/assets/Images/dashboard_overview.png";
+import bduImg from "@/assets/Images/BDU Class of 2025.png";
+import ywhImg from "@/assets/Images/ywh.png";
+import ywhAnalyzerImg from "@/assets/Images/ywh-analyzer.png";
+
+interface ProjectItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: "Marketing Analytics" | "Academic BI" | "Interactive Apps";
+  description: string;
+  tags: string[];
+  insightBadges: { label: string; bg: string }[];
+  gradient: string;
+  image: string;
+  imageAlt: string;
+  demoPath?: string;
+  externalUrl?: string;
+  repo?: string;
+}
+
+const projects: ProjectItem[] = [
   {
-    title: "Marketing Performance & Customer Insights Analysis - ProGear Sports",
+    id: "progear",
+    title: "ProGear Sports — Marketing Analytics & NLP Insights",
+    subtitle: "End-to-End Marketing Funnel & Customer Sentiment Analysis",
+    category: "Marketing Analytics",
     description:
-      "End-to-end marketing analytics project analyzing declining engagement and conversion using SQL, Python NLP, and Power BI.",
-    tags: ["SQL Server", "Python", "Transformers", "Power BI"],
-    insightTags: [
-      {
-        label: "Performance Analysis",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
-      {
-        label: "Conversion Funnel Analysis",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
-      {
-        label: "Customer Segmentation",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
-      {
-        label: "Customer Sentiment Analysis",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
+      "Analyzed declining engagement & conversion efficiency using SQL Server, Python HuggingFace Transformers, and Power BI dashboards. Uncovered an 80% CTR decay and 25.8% sales erosion.",
+    tags: ["SQL Server", "Python", "Transformers", "Power BI", "Data Modeling"],
+    insightBadges: [
+      { label: "80% CTR Erosion Uncovered", bg: "bg-rose-500/10 text-rose-400 border-rose-500/20" },
+      { label: "BERT NLP Sentiment", bg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+      { label: "9.6% Funnel Conversion", bg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
     ],
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-cyan-500 via-blue-600 to-indigo-600",
+    image: dashboardOverviewImg,
+    imageAlt: "ProGear Marketing Analytics Dashboard",
     demoPath: "/progear",
     repo: "https://github.com/0xNDM/ProGear_Sports_Marketing_Analytics/tree/main",
-    image: dashboardOverviewImg,
-    imageAlt: "ProGear marketing analytics dashboard overview",
-    layout: "vertical",
   },
   {
-    title: "Analyzing Academic Outcomes — BDU Class of 2025",
+    id: "bdu",
+    title: "BDU Class of 2025 — Academic Outcome Intelligence",
+    subtitle: "University-Wide Exit Exam & CGPA Analytics Dashboard",
+    category: "Academic BI",
     description:
-      "University-wide dashboard for 1,749 students linking CGPA to national exit exam performance, with department-level deep dives and intervention signals.",
-    tags: ["Excel", "Looker Studio", "Data Cleaning", "BI"],
-    insightTags: [
-      {
-        label: "Correlation (0.56)",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
-      {
-        label: "96.23% Pass Rate",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
-      {
-        label: "Department Insights",
-        className: "bg-slate-500/15 text-slate-200 border-slate-500/30",
-      },
+      "Comprehensive analysis of 1,749 graduating students across 18 academic departments linking cumulative GPA with national exit examination results in Looker Studio.",
+    tags: ["Excel", "Looker Studio", "Data Wrangling", "Business Intelligence"],
+    insightBadges: [
+      { label: "0.56 Correlation Discovered", bg: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20" },
+      { label: "96.23% Pass Rate", bg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
+      { label: "1,749 Students Tracked", bg: "bg-amber-500/10 text-amber-400 border-amber-500/20" },
     ],
-    gradient: "from-indigo-500 to-violet-500",
-    demoPath: "/bdu",
+    gradient: "from-indigo-500 via-purple-600 to-violet-600",
     image: bduImg,
-    imageAlt: "BDU Class of 2025 performance dashboard banner",
-    layout: "vertical",
+    imageAlt: "Bahir Dar University Academic Dashboard Banner",
+    demoPath: "/bdu",
   },
   {
-    title: "My YouTube Watch History Analysis",
-    description: "Analyzed and visualized YouTube watch history to surface habits, trends, and content preferences.",
-    tags: ["Python", "Pandas", "SQL", "Power BI"],
-    gradient: "from-cyan-500 to-blue-500",
-    demo: "#",
-    demoPath: "/projects/ywh",
-    image: ywhImg,
-    imageAlt: "YouTube watch history overview",
-    layout: "vertical", // stack content so title/description sit below the image
-  },
-  {
-    title: "YouTube Analyzer",
+    id: "ywh-analyzer",
+    title: "YouTube Watch History Analyzer",
+    subtitle: "Interactive Personal Behavioral Data Web App",
+    category: "Interactive Apps",
     description:
-      "Discover your YouTube habits like never before! Upload your watch-history.json and get personalized insights, interactive charts, and visualizations that reveal your viewing patterns over time.",
-    tags: ["Streamlit", "Pandas", "Plotly"],
-    gradient: "from-rose-500 to-red-500",
+      "A web application built in Streamlit and Plotly that processes watch-history JSON exports to deliver personalized habit trends, category distributions, and time-series heatmaps.",
+    tags: ["Streamlit", "Python", "Pandas", "Plotly", "Data Analysis"],
+    insightBadges: [
+      { label: "Interactive Web App", bg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+      { label: "JSON Data Parser", bg: "bg-violet-500/10 text-violet-400 border-violet-500/20" },
+      { label: "Streamlit Cloud Live", bg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" },
+    ],
+    gradient: "from-rose-500 via-pink-600 to-red-600",
+    image: ywhAnalyzerImg,
+    imageAlt: "YouTube Watch History Analyzer Streamlit Interface",
     externalUrl: "https://ywh.nathnael.me/",
     repo: "https://github.com/0xNDM/YWH_Analyzer",
-    image: ywhAnalyzerImg,
-    imageAlt: "YouTube Analyzer interface",
-    layout: "vertical",
+  },
+  {
+    id: "ywh-analysis",
+    title: "Personal Digital Habit Exploration — YouTube Study",
+    subtitle: "In-Depth Exploratory Analysis & Power BI Visuals",
+    category: "Marketing Analytics",
+    description:
+      "Comprehensive statistical breakdown of multi-year personal media consumption history using Python data cleaning and interactive Power BI report views.",
+    tags: ["Python", "Pandas", "SQL", "Power BI"],
+    insightBadges: [
+      { label: "Multi-Year History", bg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+      { label: "Habit Clustering", bg: "bg-amber-500/10 text-amber-400 border-amber-500/20" },
+    ],
+    gradient: "from-cyan-500 via-teal-600 to-emerald-600",
+    image: ywhImg,
+    imageAlt: "YouTube Watch History Analysis Report",
+    demoPath: "/projects/ywh",
   },
 ];
 
+const categories = ["All", "Marketing Analytics", "Academic BI", "Interactive Apps"] as const;
+
 const Projects = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredKey, setHoveredKey] = useState<string | null>(null);
-  const featuredProjects = projects.slice(0, 2);
-  const otherProjects = projects.slice(2);
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const filteredProjects =
+    activeCategory === "All"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
 
   return (
-    <section ref={ref} id="projects" className="py-24 relative">
-      <div className="container mx-auto px-4">
+    <section id="projects" className="py-24 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-12"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Featured Projects
+          <span className="text-xs font-mono font-bold tracking-widest text-cyan-500 uppercase px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+            Selected Work
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-foreground mt-4 mb-4">
+            Featured Analytics & BI Case Studies
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A selection of recent analytics work focused on clear, decision-ready insights
+          <p className="text-base sm:text-lg text-muted-foreground">
+            Explore end-to-end data projects delivering high-impact metrics, SQL feature engineering, NLP sentiment modeling, and executive BI dashboards.
           </p>
         </motion.div>
 
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold font-mono transition-all duration-200 ${
+                  isActive
+                    ? "bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-md shadow-cyan-500/20 scale-105"
+                    : "bg-card/60 hover:bg-card border border-border/80 text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {cat}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {featuredProjects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              onHoverStart={() => setHoveredKey(project.title)}
-              onHoverEnd={() => setHoveredKey(null)}
-            >
-              <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 h-full">
-                {/* Gradient background on hover */}
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => {
+              const isExternal = Boolean(project.externalUrl);
+              const targetUrl = project.externalUrl || project.demoPath || "#";
+
+              return (
                 <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredKey === project.title ? 0.1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-
-                <div className="p-6 relative z-10">
-                  {project.image && (
-                    <div className="mb-5 rounded-2xl overflow-hidden border border-border/60 bg-card/40">
-                      {project.externalUrl ? (
-                        <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} preview`}>
-                          <div className="relative aspect-[16/9] w-full">
-                            <img
-                              src={project.image}
-                              alt=""
-                              aria-hidden="true"
-                              className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"
-                            />
-                            <img
-                              src={project.image}
-                              alt={project.imageAlt || project.title}
-                              className="relative w-full h-full object-contain p-3"
-                            />
-                          </div>
-                        </a>
-                      ) : (
-                        <Link to={project.demoPath || '#'} aria-label={`${project.title} preview`}>
-                          <div className="relative aspect-[16/9] w-full">
-                            <img
-                              src={project.image}
-                              alt=""
-                              aria-hidden="true"
-                              className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"
-                            />
-                            <img
-                              src={project.image}
-                              alt={project.imageAlt || project.title}
-                              className="relative w-full h-full object-contain p-3"
-                            />
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  )}
-                  <div className={`flex flex-col ${project.layout === 'vertical' ? '' : 'md:flex-row'} items-start gap-6`}>
-                    <div className="flex-1 text-left">
-                      <div className="h-1 w-16 bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 rounded-full mb-4" />
-                      <motion.div
-                        animate={{ y: hoveredKey === project.title ? -2 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="mb-3"
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4 }}
+                  className="group relative rounded-3xl bg-card/60 backdrop-blur-xl border border-border/80 hover:border-cyan-500/50 shadow-xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-cyan-950/20"
+                >
+                  <div>
+                    {/* Top Image Preview Link Container */}
+                    {isExternal ? (
+                      <a
+                        href={targetUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block relative aspect-[16/9] w-full overflow-hidden bg-slate-950 border-b border-border/60 group/img cursor-pointer"
                       >
-                        {project.externalUrl ? (
-                          <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 bg-clip-text text-transparent hover:opacity-90 transition">
-                            {project.title}
-                          </a>
-                        ) : (
-                          <Link to={project.demoPath || '#'} className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 bg-clip-text text-transparent hover:opacity-90 transition">
-                            {project.title}
-                          </Link>
-                        )}
-                      </motion.div>
-                      <p className="text-muted-foreground mb-4 bg-card/60 border border-border/60 rounded-xl p-4">
-                        {project.description}
-                      </p>
+                        <img
+                          src={project.image}
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+                        />
+                        <img
+                          src={project.image}
+                          alt={project.imageAlt}
+                          className="relative z-10 w-full h-full object-contain p-4 transition-transform duration-500 group-hover/img:scale-105"
+                        />
+                      </a>
+                    ) : (
+                      <Link
+                        to={targetUrl}
+                        className="block relative aspect-[16/9] w-full overflow-hidden bg-slate-950 border-b border-border/60 group/img cursor-pointer"
+                      >
+                        <img
+                          src={project.image}
+                          alt=""
+                          className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-40 scale-110"
+                        />
+                        <img
+                          src={project.image}
+                          alt={project.imageAlt}
+                          className="relative z-10 w-full h-full object-contain p-4 transition-transform duration-500 group-hover/img:scale-105"
+                        />
+                      </Link>
+                    )}
 
-                      {project.insightTags && project.insightTags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {project.insightTags.map((tag, tagIndex) => (
-                            <motion.span
-                              key={`insight-${tagIndex}`}
-                              className={`px-3 py-1 text-sm rounded-full border ${tag.className}`}
-                              whileHover={{ scale: 1.1 }}
-                            >
-                              {tag.label}
-                            </motion.span>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tags.map((tag, tagIndex) => (
-                          <motion.span
-                            key={tagIndex}
-                            className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary border border-primary/20"
-                            whileHover={{ scale: 1.1 }}
+                    {/* Body Content */}
+                    <div className="p-6 sm:p-8">
+                      {/* Insight Badges */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.insightBadges.map((badge, idx) => (
+                          <span
+                            key={idx}
+                            className={`px-2.5 py-1 rounded-md border text-[11px] font-mono font-semibold ${badge.bg}`}
                           >
-                            {tag}
-                          </motion.span>
+                            {badge.label}
+                          </span>
                         ))}
                       </div>
 
-                      <div className="flex flex-wrap gap-3 items-center">
-                        {project.externalUrl ? (
-                          <>
-                            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                              <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">
-                                <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
-                                  <ExternalLink className="w-4 h-4 mr-2" />
-                                  Launch App
-                                </Button>
-                              </a>
-                            </motion.div>
-                          </>
-                        ) : project.demo && project.demo !== "#" ? (
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                              <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
-                                <ExternalLink className="w-4 h-4 mr-2" />
-                                Live Demo
-                              </Button>
-                            </a>
-                          </motion.div>
-                        ) : (
-                          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                            <Link to={project.demoPath || '#'}>
-                              <Button size="sm" variant="outline" className="border-primary/50">Project Page</Button>
-                            </Link>
-                          </motion.div>
-                        )}
-                        {project.repo && (
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a href={project.repo} target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
-                              <Button size="icon" variant="outline" className="border-primary/50">
-                                <Github className="w-4 h-4" />
-                              </Button>
-                            </a>
-                          </motion.div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          {otherProjects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{ duration: 0.5, delay: (index + 2) * 0.1 }}
-              whileHover={{ y: -10 }}
-              onHoverStart={() => setHoveredKey(project.title)}
-              onHoverEnd={() => setHoveredKey(null)}
-            >
-              <Card className="group relative overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all duration-300 h-full">
-                <motion.div
-                  className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: hoveredKey === project.title ? 0.1 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-
-                <div className="p-6 relative z-10">
-                  {project.image && (
-                    <div className="mb-5 rounded-2xl overflow-hidden border border-border/60 bg-card/40">
-                      {project.externalUrl ? (
-                        <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} preview`}>
-                          <div className="relative aspect-[16/9] w-full">
-                            <img
-                              src={project.image}
-                              alt=""
-                              aria-hidden="true"
-                              className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"
-                            />
-                            <img
-                              src={project.image}
-                              alt={project.imageAlt || project.title}
-                              className="relative w-full h-full object-contain p-3"
-                            />
-                          </div>
-                        </a>
-                      ) : (
-                        <Link to={project.demoPath || '#'} aria-label={`${project.title} preview`}>
-                          <div className="relative aspect-[16/9] w-full">
-                            <img
-                              src={project.image}
-                              alt=""
-                              aria-hidden="true"
-                              className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-40"
-                            />
-                            <img
-                              src={project.image}
-                              alt={project.imageAlt || project.title}
-                              className="relative w-full h-full object-contain p-3"
-                            />
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  )}
-                  <div className={`flex flex-col ${project.layout === 'vertical' ? '' : 'md:flex-row'} items-start gap-6`}>
-                    <div className="flex-1 text-left">
-                      <div className="h-1 w-16 bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 rounded-full mb-4" />
-                      <motion.div
-                        animate={{ y: hoveredKey === project.title ? -2 : 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="mb-3"
-                      >
-                        {project.externalUrl ? (
-                          <a href={project.externalUrl} target="_blank" rel="noopener noreferrer" className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 bg-clip-text text-transparent hover:opacity-90 transition">
+                      {/* Clickable Title */}
+                      <h3 className="text-xl sm:text-2xl font-bold font-display text-foreground mb-2 transition-colors">
+                        {isExternal ? (
+                          <a
+                            href={targetUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-cyan-500 transition-colors"
+                          >
                             {project.title}
                           </a>
                         ) : (
-                          <Link to={project.demoPath || '#'} className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 via-red-500 to-rose-600 bg-clip-text text-transparent hover:opacity-90 transition">
+                          <Link to={targetUrl} className="hover:text-cyan-500 transition-colors">
                             {project.title}
                           </Link>
                         )}
-                      </motion.div>
-                      <p className="text-muted-foreground mb-4 bg-card/60 border border-border/60 rounded-xl p-4">
+                      </h3>
+
+                      <p className="text-xs font-mono text-muted-foreground mb-4">
+                        {project.subtitle}
+                      </p>
+
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
                         {project.description}
                       </p>
 
-                      {project.insightTags && project.insightTags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {project.insightTags.map((tag, tagIndex) => (
-                            <motion.span
-                              key={`insight-${tagIndex}`}
-                              className={`px-3 py-1 text-sm rounded-full border ${tag.className}`}
-                              whileHover={{ scale: 1.1 }}
-                            >
-                              {tag.label}
-                            </motion.span>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tags.map((tag, tagIndex) => (
-                          <motion.span
-                            key={tagIndex}
-                            className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary border border-primary/20"
-                            whileHover={{ scale: 1.1 }}
+                      {/* Tech Stack Pills */}
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2.5 py-1 rounded-md bg-muted/80 text-foreground/90 font-mono text-[11px] font-medium border border-border/50"
                           >
                             {tag}
-                          </motion.span>
+                          </span>
                         ))}
-                      </div>
-
-                      <div className="flex flex-wrap gap-3 items-center">
-                        {project.externalUrl ? (
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">
-                              <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
-                                <ExternalLink className="w-4 h-4 mr-2" />
-                                Launch App
-                              </Button>
-                            </a>
-                          </motion.div>
-                        ) : project.demo && project.demo !== "#" ? (
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                              <Button size="sm" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground">
-                                <ExternalLink className="w-4 h-4 mr-2" />
-                                Live Demo
-                              </Button>
-                            </a>
-                          </motion.div>
-                        ) : (
-                          <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                            <Link to={project.demoPath || '#'}>
-                              <Button size="sm" variant="outline" className="border-primary/50">Project Page</Button>
-                            </Link>
-                          </motion.div>
-                        )}
-                        {project.repo && (
-                          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a href={project.repo} target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
-                              <Button size="icon" variant="outline" className="border-primary/50">
-                                <Github className="w-4 h-4" />
-                              </Button>
-                            </a>
-                          </motion.div>
-                        )}
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+
+                  {/* Footer Action Links */}
+                  <div className="px-6 sm:px-8 pb-6 sm:pb-8 pt-0 flex flex-wrap items-center justify-between gap-3 border-t border-border/40 mt-auto">
+                    {isExternal ? (
+                      <a
+                        href={targetUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 transition-all hover:scale-105"
+                      >
+                        <span>Launch App</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    ) : (
+                      <Link
+                        to={targetUrl}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs shadow-md shadow-cyan-500/20 transition-all hover:scale-105"
+                      >
+                        <span>Read Case Study</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </Link>
+                    )}
+
+                    {project.repo && (
+                      <a
+                        href={project.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-card hover:bg-muted border border-border/80 text-foreground font-mono text-xs font-semibold hover:border-cyan-500/50 transition-all"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                        <span>Code Repo</span>
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </div>
-        {/* Back to top button (stylish) */}
-        <motion.button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Back to top"
-          whileHover={{ scale: 1.08, y: -4 }}
-          whileTap={{ scale: 0.95 }}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-br from-primary to-secondary text-white p-3.5 rounded-full shadow-2xl hover:shadow-[0_12px_30px_rgba(0,0,0,0.35)] transform transition-all duration-300 ring-4 ring-primary/25"
-        >
-          <ArrowUp className="h-6 w-6" />
-        </motion.button>
       </div>
     </section>
   );

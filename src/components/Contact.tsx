@@ -1,153 +1,160 @@
-import { Github, Linkedin, Mail } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { useState, useRef } from "react";
+import { Github, Linkedin, Mail, Send, MessageSquare } from "lucide-react";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { toast } from "sonner";
 
 const socials = [
-  { icon: Github, label: "GitHub", href: "https://github.com/0xNDM/" },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/nathnaeldagnaw/" },
+  { icon: Github, label: "GitHub", href: "https://github.com/0xNDM/" },
   { icon: Mail, label: "Email", href: "mailto:hello@nathnael.me" },
 ];
 
 const Contact = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [focused, setFocused] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const name = (form.get('name') as string || '').trim();
-    const email = (form.get('email') as string || '').trim();
-    const message = (form.get('message') as string || '').trim();
+    setIsSubmitting(true);
 
-    const subject = encodeURIComponent(`Portfolio inquiry from ${name || 'someone'}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+    const form = new FormData(e.currentTarget);
+    const name = (form.get("name") as string || "").trim();
+    const email = (form.get("email") as string || "").trim();
+    const message = (form.get("message") as string || "").trim();
+
+    if (!email || !message) {
+      toast.error("Please fill out your email and message.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${name || "a Visitor"}`);
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+
     window.location.href = `mailto:hello@nathnael.me?subject=${subject}&body=${body}`;
+    toast.success("Opening your email client...");
+    setIsSubmitting(false);
   };
 
   return (
-    <section ref={ref} id="contact" className="py-24 relative">
-      <div className="container mx-auto px-4">
+    <section ref={ref} id="contact" className="py-24 relative overflow-hidden">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-16"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="text-center max-w-2xl mx-auto mb-12"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <span className="text-xs font-mono font-bold tracking-widest text-cyan-500 uppercase px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">
             Let's Connect
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-black font-display tracking-tight text-foreground mt-4 mb-4">
+            Get In Touch
           </h2>
-          <p className="text-xl text-muted-foreground">
-            Have a project in mind or just want to chat? I'd love to hear from you!
+          <p className="text-base sm:text-lg text-muted-foreground">
+            Have a project in mind, a dataset to analyze, or want to chat? Send me a message below or connect via social links!
           </p>
-        </motion.div>
 
-        <div className="max-w-2xl mx-auto">
-          <motion.form
-            className="space-y-6 mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            onSubmit={handleSubmit}
-          >
-            <motion.div
-              animate={focused === 'name' ? { scale: 1.02 } : { scale: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Input
-                name="name"
-                placeholder="Your Name"
-                className="bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all"
-                onFocus={() => setFocused('name')}
-                onBlur={() => setFocused(null)}
-              />
-            </motion.div>
-            
-            <motion.div
-              animate={focused === 'email' ? { scale: 1.02 } : { scale: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Input
-                name="email"
-                type="email"
-                placeholder="Your Email"
-                className="bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all"
-                onFocus={() => setFocused('email')}
-                onBlur={() => setFocused(null)}
-              />
-            </motion.div>
-            
-            <motion.div
-              animate={focused === 'message' ? { scale: 1.02 } : { scale: 1 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Textarea
-                name="message"
-                placeholder="Your Message"
-                rows={6}
-                className="bg-card/50 backdrop-blur-sm border-border/50 focus:border-primary/50 transition-all resize-none"
-                onFocus={() => setFocused('message')}
-                onBlur={() => setFocused(null)}
-              />
-            </motion.div>
-
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button 
-                type="submit"
-                size="lg"
-                className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-primary-foreground text-lg"
-              >
-                Send Message
-              </Button>
-            </motion.div>
-          </motion.form>
-
-          <motion.div
-            className="flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            {socials.map((social, index) => {
-              const Icon = social.icon;
-              const isEmail = social.href.startsWith("mailto:");
+          {/* Attached Clickable Social Icons */}
+          <div className="flex items-center justify-center gap-3 mt-6">
+            {socials.map((item) => {
+              const Icon = item.icon;
               return (
-                <motion.div
-                  key={index}
-                  whileHover={{ scale: 1.1, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={item.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-card/80 hover:bg-cyan-500/10 border border-border/80 hover:border-cyan-500/50 text-foreground hover:text-cyan-500 text-xs font-medium font-mono transition-all shadow-sm"
                 >
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="border-primary/50 hover:bg-primary/10 hover:border-primary group"
-                    asChild
-                  >
-                    <a href={social.href} target={isEmail ? undefined : "_blank"} rel={isEmail ? undefined : "noopener noreferrer"}>
-                      <Icon className="w-5 h-5 mr-2 group-hover:text-primary transition-colors" />
-                      {social.label}
-                    </a>
-                  </Button>
-                </motion.div>
+                  <Icon className="w-4 h-4" />
+                  <span>{item.label}</span>
+                </a>
               );
             })}
-          </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Centered Form */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="max-w-2xl mx-auto"
+        >
+          <form
+            onSubmit={handleSubmit}
+            className="p-8 rounded-3xl bg-card/60 backdrop-blur-xl border border-border/80 shadow-xl space-y-6"
+          >
+            <div className="flex items-center gap-3 mb-2">
+              <MessageSquare className="w-5 h-5 text-cyan-500" />
+              <h3 className="font-bold text-lg font-display text-foreground">
+                Send a Message
+              </h3>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-mono font-medium text-muted-foreground mb-1.5">
+                  Your Name
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="e.g. Alex Morgan"
+                  className="w-full px-4 py-3 rounded-xl bg-background/60 border border-border/80 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none text-sm text-foreground transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono font-medium text-muted-foreground mb-1.5">
+                  Your Email Address *
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="e.g. alex@company.com"
+                  className="w-full px-4 py-3 rounded-xl bg-background/60 border border-border/80 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none text-sm text-foreground transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono font-medium text-muted-foreground mb-1.5">
+                  Message *
+                </label>
+                <textarea
+                  name="message"
+                  required
+                  rows={5}
+                  placeholder="Tell me about your dataset, project, or role details..."
+                  className="w-full px-4 py-3 rounded-xl bg-background/60 border border-border/80 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 outline-none text-sm text-foreground transition-all resize-none"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-sm shadow-xl shadow-cyan-500/25 hover:scale-[1.01] transition-all flex items-center justify-center gap-2"
+            >
+              <Send className="w-4 h-4" />
+              <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+            </button>
+          </form>
+        </motion.div>
+
+        {/* Footer */}
+        <div className="mt-20 pt-8 border-t border-border/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-muted-foreground text-center sm:text-left">
+          <p>© {new Date().getFullYear()} Nathnael Dagnaw. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            Built with <span className="text-cyan-500">React + Vite + Tailwind</span>
+          </p>
         </div>
       </div>
-
-      {/* Footer */}
-      <motion.div
-        className="mt-24 pt-8 border-t border-border/50 text-center text-muted-foreground"
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, delay: 0.6 }}
-      >
-        <p>© {new Date().getFullYear()} Nathnael. All Rights Reserved.</p>
-      </motion.div>
     </section>
   );
 };
